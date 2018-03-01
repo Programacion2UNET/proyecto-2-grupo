@@ -37,7 +37,7 @@ session_start();
                 </div>
                  <div>
                    <label id= "LJ" for="web">Pagina Web</label><br>
-                    <input name="web" id="web" type="text" required placeholder="example.com">
+                    <input name="web" id="web" type="text" placeholder="Opcional.com">
                 </div>
                  <div>
                    <label id= "LJ" for="usuario">Usuario</label><br>
@@ -52,5 +52,8 @@ session_start();
            </section>
     </form>
     </div>
+      <form >
+        <a class="boton-azul" href="index.php">INICIO</a>
+    </form>
 </body>
 </html>

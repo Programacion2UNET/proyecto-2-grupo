@@ -6,8 +6,11 @@ if(!$connection){
 die('No hay conexion a la BD');
 }
 mysqli_select_db($connection,'basetorneo');
-$sql = sprintf("SELECT * FROM torneo_usuario");
+$sql = sprintf("SELECT * FROM torneo_registro");
 $res= mysqli_query($connection, $sql);
+
+
+
 
 $_SESSION['torneos_consulta']=array();
 $i=0;
@@ -55,19 +58,22 @@ if(mysqli_num_rows($res)>0){
     </section>
     <?php
         if(isset($_POST['Consultar'])){
+            echo "<h1>";
+                echo $_POST["Torneos"];
+            echo  "</h1>";
            $connection = mysqli_connect('localhost', 'root', '');
            if(!$connection){
            die('No hay conexion a la BD');
             }
             mysqli_select_db($connection,'basetorneo');
             $nombre_torneo_consulta=$_POST["Torneos"];
-            $sql = sprintf("SELECT * FROM torneo_usuario WHERE nombre_torneo='$nombre_torneo_consulta' LIMIT 1");
+            $sql = sprintf("SELECT * FROM torneo_usuario WHERE nombre_torneo='$nombre_torneo_consulta'");
             $res= mysqli_query($connection, $sql);
-            
+          
             if(mysqli_num_rows($res)>0){
                 
                       
-                echo "<br><br><form id='PInicio2'>";
+                echo "<br><br><div id='PInicio2'>";
                 echo "<table border=1>";
                 echo "<tr>";
                 echo "<td>TORNEO </td>";               
@@ -77,25 +83,40 @@ if(mysqli_num_rows($res)>0){
                 echo "<td>ACCIONES</td>";
                 echo"</tr>";
                 while( $row = mysqli_fetch_assoc($res)){
+                    echo "<tr>";
                     echo "<td>" . $row["nombre_torneo"]."</td>";
                     echo "<td>" . $row["nivel"]."</td>";
                     $idd=$row['id_user'];
-                    $sql2 = sprintf("SELECT * FROM equipo WHERE id='55' LIMIT 1");
+                    $sql2 = sprintf("SELECT * FROM equipo WHERE id_usuario='$idd' LIMIT 1");
                     $res2= mysqli_query($connection, $sql2);
                     $rowx = mysqli_fetch_assoc($res2);
                     echo "<td>" . $rowx["nombre"]."</td>";
                     echo "<td>" . $row["participantes"]."</td>";
+                    echo "<td>";
+                    echo "<a style='background-color:green;color:white;border-radius:3px;font-size:1.5rem'href='editar-registro.php?idd=$idd'>editar</a><br><a style='background-color:red;color:white;border-radius:3px;font-size:1.5rem'href='delete.php?idd=$idd'>eliminar</a>";    
+                    echo "</td>";
+                    echo "</tr>";
                 }
                 
                 
-                echo "</table>";
-                echo "</form>";
+                echo "</table>"; 
+                echo "</div>";
             }
-            
+              echo "<form>";
+              echo "<br><a class='boton-verde' href='editar-torneo.php?nombre=$nombre_torneo_consulta'>Editar Torneo</a>";
+              echo "<br><a class='boton-rojo' href='eliminar-torneo.php?nombre=$nombre_torneo_consulta'>Eliminar Torneo</a>";
+            echo "</form>";
         }
     
     ?>
     
+    <?php
+        
+    ?>
+    
+    <form >
+        <a class="boton-azul" href="admin.php">Volver</a>
+    </form>
     
 </body>
 </html>

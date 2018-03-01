@@ -57,15 +57,14 @@ session_start();
                 
                 if($res){
                     echo" <h1>Registro Exitoso</h1>";
-                    echo"<form>";
-                    echo"<a class='boton-azul' href='admin.php'>Regresar</a>";
-                    echo "</fomr>";
                 }
             }
         }
     
     ?>
-    
+    <form >
+        <a class="boton-azul" href="admin.php">Volver</a>
+    </form>
     
 </body>
 </html>
